@@ -1,6 +1,6 @@
 # adv_flutter_ch1
 
-## Theme
+# Theme
 
 ## Light Theme
 <img src="https://github.com/Vishalk0810/adv_flutter_ch1/assets/149374506/aa653ec3-16e3-4df8-8499-b7955f49bc9a" height="550">
