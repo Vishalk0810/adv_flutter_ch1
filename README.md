@@ -7,3 +7,9 @@
 
 ## Dark Theme
 <img src="https://github.com/Vishalk0810/adv_flutter_ch1/assets/149374506/c2427acb-ce8e-4948-9a7f-784795be34c6" height="550">
+
+```bash
+theme: ThemeData.light(),
+darkTheme: ThemeData.dark(),
+themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+```
