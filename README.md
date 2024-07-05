@@ -1,16 +1,9 @@
 # adv_flutter_ch1
 
-A new Flutter project.
+## Theme
 
-## Getting Started
+## Light Theme
+<img src="https://github.com/Vishalk0810/adv_flutter_ch1/assets/149374506/aa653ec3-16e3-4df8-8499-b7955f49bc9a" height="550">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Dark Theme
+<img src="https://github.com/Vishalk0810/adv_flutter_ch1/assets/149374506/c2427acb-ce8e-4948-9a7f-784795be34c6" height="550">
