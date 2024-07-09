@@ -1,87 +1,135 @@
-import 'package:adv_flutter_ch1/utils/global.dart';
 import 'package:flutter/material.dart';
 
-void main()
-{
-  runApp(MyApp());
-}
+import '../utils/global.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+void main() => runApp(const StepperExampleApp());
+
+class StepperExampleApp extends StatefulWidget {
+  const StepperExampleApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<StepperExampleApp> createState() => _StepperExampleAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _StepperExampleAppState extends State<StepperExampleApp> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: isDark?ThemeMode.dark:ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Theme'),
+          backgroundColor: Colors.blue,
           centerTitle: true,
-        ),
-        body: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Column(
-            children: [
-              SizedBox(height: 100,),
-              Text('Yo Man!',style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w800,
-              ),),
-              SizedBox(height: 8,),
-              Text("It's a simple example of",style: TextStyle(
-                fontSize: 20,
-              ),),
-              Text('Dark Theme',style: TextStyle(
-                fontSize: 20,
-              ),),
-              SizedBox(height: 60,),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isDark = false;
-                  });
-                },
-                  child: themeContainer(height, width,color: Colors.amber,text: 'Light Theme')),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isDark = true;
-                  });
-                },
-                  child: themeContainer(height, width,color: Colors.red,text: 'Dark Theme')),
-            ],
+          title: const Text(
+            'Flutter Stepper Demo',
+            style: TextStyle(color: Colors.white),
           ),
+          toolbarHeight: 70,
         ),
+        body: StepperExample(),
       ),
     );
   }
+}
 
-  Container themeContainer(double height, double width,{required color,required text}) {
-    return Container(
-              margin: EdgeInsets.all(25),
-              height: height * 0.1,
-              width: width,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(15),
-              ),
-      child: Center(
-        child: Text(text,style: TextStyle(
-          fontWeight: FontWeight.w900,
-          fontSize: 25
-        ),),
+class StepperExample extends StatefulWidget {
+  const StepperExample({super.key});
+
+  @override
+  State<StepperExample> createState() => _StepperExampleState();
+}
+
+class _StepperExampleState extends State<StepperExample> {
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(child: Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        onPressed: () {
+          setState(() {
+            if(isgrid)
+            {
+              isgrid = false;
+            }
+            else
+            {
+              isgrid = true;
+            }
+          });
+        },
+        child: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
       ),
-            );
+      body: Stepper(
+        physics: const BouncingScrollPhysics(),
+        currentStep: selectedIndex,
+        onStepCancel: () {
+          setState(() {
+            if (selectedIndex > 0) {
+              setState(() {
+                selectedIndex--;
+              });
+            } else {
+              selectedIndex = 2;
+            }
+          });
+        },
+        onStepContinue: () {
+          setState(() {
+            if (selectedIndex != 2) {
+              setState(() {
+                selectedIndex++;
+              });
+            }
+          });
+        },
+        onStepTapped: (int index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        type: isgrid?StepperType.horizontal:StepperType.vertical,
+        steps: [
+          Step(
+              stepStyle: StepStyle(
+                  color: Colors.blue, indexStyle: TextStyle(color: Colors.white)),
+              title: Text(
+                'Account',
+                style: TextStyle(fontSize: 15),
+              ),
+              isActive: selectedIndex == 0,
+              content: TextField(
+                cursorColor: Colors.blue.shade700,
+                controller: txtAcc,
+                decoration: InputDecoration(hintText: 'Account '),
+              )),
+          Step(
+              stepStyle: StepStyle(
+                  color: Colors.blue, indexStyle: TextStyle(color: Colors.white)),
+              title: Text('Address', style: TextStyle(fontSize: 15)),
+              isActive: selectedIndex == 1,
+              content: TextField(
+                cursorColor: Colors.blue.shade700,
+                controller: txtAdd,
+                decoration: InputDecoration(hintText: 'Address '),
+              )),
+          Step(
+              stepStyle: StepStyle(
+                  color: Colors.blue, indexStyle: TextStyle(color: Colors.white)),
+              title: Text('Mobile Number', style: TextStyle(fontSize: 15)),
+              isActive: selectedIndex == 2,
+              content: TextField(
+                cursorColor: Colors.blue.shade700,
+                controller: txtMob,
+                decoration: InputDecoration(
+                    hintText: 'Mobile Number',
+                    hintStyle: TextStyle(color: Colors.grey)),
+              )),
+        ],
+      ),
+    ));
   }
 }
